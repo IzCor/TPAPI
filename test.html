@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function(){
+  $(document).ajaxSuccess(function(){
+    //alert("Votre chat mignon va apparaître !");
+  });
+  $("button").click(function(){
+    sendData();
+    //$("div").load("https://api.thecatapi.com/v1/images/search");
+  });
+});
+
+function LoadDos()
+{
+  pelem = innerText = 'Chat'
+  document.getElementByld('monChat') .appendChild(pelem);
+}
+
+
+  
+    function getXDomainRequest() {
+      var xdr = null;
+      if (window.XDomainRequest) {
+        xdr = new XDomainRequest();
+      } else if (window.XMLHttpRequest) {
+        xdr = new XMLHttpRequest(); 
+      } else {
+        alert("Votre navigateur ne gère pas l'AJAX cross-domain !");
+      } 
+      return xdr; 
+    } 
+
+function sendData() {
+        var xdr = getXDomainRequest();
+        xdr.onload = function() {
+          alert(xdr.responseText);
+
+          var imgElement = document.createElement('img');
+          imgElement.id = "chat";
+          var lechat = JSON.parse(this.responseText);
+          imgElement.src = lechat[0].url;
+          var divChat = document.getElementById("Chat");
+          divChat.appendChild(imgElement);
+
+        }
+        
+        xdr.open("GET", "https://api.thecatapi.com/v1/images/search");
+        xdr.send();
+}
+
+
+
+ 
+
+</script>
+</head>
+<body>
+
+<div><h2>Les Chats les plus migons de France</h2></div>
+
+<button>Chat Mignon !</button>
+<div id="Chat"> </div>
+</body>
+</html>
